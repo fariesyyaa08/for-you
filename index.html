@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Love ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+  /* Full screen */
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffb6c1, #ffe6f0);
+    font-family: 'Dancing Script', cursive;
+    position: relative;
+  }
+
+  /* Floating hearts */
+  .heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    transform: rotate(45deg);
+    animation: float 6s linear infinite;
+    opacity: 0.8;
+  }
+
+  .heart::before,
+  .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+  }
+
+  .heart::before { top: -10px; left: 0; }
+  .heart::after { left: 10px; top: 0; }
+
+  @keyframes float {
+    0% { transform: translateY(0) rotate(45deg); opacity:1;}
+    100% { transform: translateY(-800px) rotate(45deg); opacity:0;}
+  }
+
+  /* Envelope container */
+  .envelope-container {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    cursor: pointer;
+  }
+
+  /* Envelope */
+  .envelope {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border: 2px solid #e63946;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    z-index: 2;
+    overflow: hidden;
+  }
+
+  /* Flap */
+  .flap {
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-bottom: 60px solid #e63946;
+    position: absolute;
+    top: -60px;
+    left: 0;
+    transform-origin: top;
+    transition: transform 1s ease-in-out;
+    z-index: 3;
+  }
+
+  /* Letter */
+  .letter {
+    width: 180px;
+    height: 160px;
+    background: #fff8e7;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -180px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    border-radius: 8px;
+  }
+
+  .letter-text {
+    font-size: 18px;
+    color: #e63946;
+    white-space: pre-wrap;
+    overflow: hidden;
+    border-right: 2px solid #e63946;
+  }
+
+  /* Heart burst animation */
+  .heart-burst {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #ff4d6d;
+    transform: rotate(45deg);
+    animation: burst 1s ease-out forwards;
+  }
+
+  .heart-burst::before,
+  .heart-burst::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #ff4d6d;
+    border-radius: 50%;
+  }
+
+  .heart-burst::before { top: -7.5px; left: 0; }
+  .heart-burst::after { left: 7.5px; top: 0; }
+
+  @keyframes burst {
+    0% { transform: scale(0) rotate(45deg); opacity:1;}
+    100% { transform: scale(1.5) translateY(-50px) rotate(45deg); opacity:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="envelope-container" id="envelopeContainer">
+  <div class="envelope" id="envelope"></div>
+  <div class="flap" id="flap"></div>
+</div>
+
+<div class="letter" id="letter">
+  <div class="letter-text" id="letterText"></div>
+</div>
+
+<script>
+  // Floating hearts continuously
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.animationDuration = 4 + Math.random() * 4 + 's';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 8000);
+  }
+  setInterval(createHeart, 300);
+
+  // Envelope click
+  const envelopeContainer = document.getElementById('envelopeContainer');
+  const flap = document.getElementById('flap');
+  const letter = document.getElementById('letter');
+  const letterText = document.getElementById('letterText');
+
+  const message = "HELLOOOOO,\n\nI just want you to know how deeply I care about you, and you’re never as alone as you sometimes feel— because I care, and your friends care too, even when it’s quiet or unspoken. Please take care of yourself, okay? You matter so much, and hurting yourself doesn’t bring anything good into this world—you’re too precious for that, and your life has meaning beyond the pain. Remember that God loves you endlessly, and no matter how far or close you feel, it’s never too late to fix and strengthen your relationship with Him, and also with your family and friends, because love is still there waiting for you. I believe in you so much, especially with your upcoming exams—do your best, study well, but don’t push yourself too hard or drown in academic pressure; your worth isn’t measured by grades alone. Even from far away, I’ll always be your quiet supporter, silently rooting for you in everything you do, cheering you on in my heart. If things ever feel heavy or confusing, please know I’m always here—you can come to me anytime to share your problems, your worries, or even your silence. And please, don’t skip your meals, love; at least drink something, don’t let your stomach stay empty, because taking care of your body is one way of loving yourself. When life gets hard and complicated, remember to pause, pray, and ask God for guidance—He listens, even when words are hard to find. Do all of this not just for yourself, but to make your parents proud too, because they love you more than you realize, and there’s no need to hate them. I see so much goodness in you, and I’ll always be here, believing in you, caring for you, and hoping you choose yourself every single day.\n\nYours,\n💌";
+
+  envelopeContainer.addEventListener('click', () => {
+    flap.style.transform = 'rotateX(180deg)'; // open flap
+    letter.style.transform = 'translate(-50%, 20px)'; // slide letter down
+    letter.style.opacity = 1;
+
+    // Heart burst effect
+    for (let i=0; i<10; i++){
+      const hb = document.createElement('div');
+      hb.className = 'heart-burst';
+      hb.style.left = (letter.offsetLeft + 90 + Math.random()*40 - 20) + 'px';
+      hb.style.top = (letter.offsetTop + 80 + Math.random()*40 - 20) + 'px';
+      document.body.appendChild(hb);
+      setTimeout(()=> hb.remove(), 1000);
+    }
+
+    // Typing effect
+    let i = 0;
+    function type() {
+      if (i < message.length) {
+        letterText.innerHTML += message.charAt(i);
+        i++;
+        setTimeout(type, 60);
+      }
+    }
+    type();
+  });
+</script>
+
+</body>
+</html>
